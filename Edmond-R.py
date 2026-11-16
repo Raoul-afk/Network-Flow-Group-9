@@ -1,9 +1,7 @@
-from input import edges, SOURCE, SINK
+from Input import edges, SOURCE, SINK
 
 def build_residual_graph(edge_list):
-    """
-    Construit le graphe résiduel à partir de la liste d'arcs orientés.
-    """
+    """Builds the residual graph from the list of directed edges."""
     residual = {}
     
     for u, v, cap in edge_list:
@@ -12,26 +10,25 @@ def build_residual_graph(edge_list):
         if v not in residual:
             residual[v] = {}
             
+        # Add forward capacity
         residual[u][v] = residual[u].get(v, 0) + cap
         
+        # Ensure backward edge exists with initial capacity of 0
         if u not in residual[v]:
             residual[v][u] = 0
             
     return residual
 
 def bfs(residual_graph, source, sink, parent):
-    """
-    Parcours en largeur (BFS) utilisant une liste classique au lieu de deque.
-    """
+    """Breadth-First Search to find an augmenting path in the residual graph."""
     visited = {source}
-    queue = [source]  # Utilisation d'une liste standard
+    queue = [source]
     
     while queue:
-        # .pop(0) retire le premier élément (comportement FIFO),
-        # mais décale tous les éléments restants (moins performant sur de très grands graphes).
         u = queue.pop(0)
         
         for v, cap in residual_graph[u].items():
+            # If not visited and there is available residual capacity
             if v not in visited and cap > 0:
                 visited.add(v)
                 parent[v] = u
@@ -42,17 +39,17 @@ def bfs(residual_graph, source, sink, parent):
     return False
 
 def edmonds_karp(edge_list, source, sink):
-    """
-    Exécute l'algorithme d'Edmonds-Karp sans dépendance externe.
-    """
+    """Executes the Edmonds-Karp algorithm to find the maximum flow."""
     residual_graph = build_residual_graph(edge_list)
     parent = {}
     max_flow = 0
     iteration = 1
 
-    print(f"--- Exécution d'Edmonds-Karp ({source} -> {sink}) --- (Sans deque)\n")
+    print(f"--- Edmonds-Karp Execution ({source} -> {sink}) ---\n")
 
+    # While there is an augmenting path from source to sink
     while bfs(residual_graph, source, sink, parent):
+        # Find the bottleneck capacity along the path found
         path_flow = float("inf")
         curr = sink
         path = []
@@ -65,8 +62,9 @@ def edmonds_karp(edge_list, source, sink):
         path.append(source)
         path.reverse()
         
-        print(f"Itération {iteration} : {' -> '.join(path)} | Flot ajouté = {path_flow}")
+        print(f"Iteration {iteration}: {' -> '.join(path)} | Flow added = {path_flow}")
 
+        # Update residual capacities of the edges and reverse edges
         v = sink
         while v != source:
             u = parent[v]
@@ -78,8 +76,8 @@ def edmonds_karp(edge_list, source, sink):
         iteration += 1
         parent = {}
 
-    print(f"\n--- Résultat final ---")
-    print(f"Valeur du flot maximal de {source} à {sink} = {max_flow}")
+    print(f"\n--- Final Result ---")
+    print(f"Maximum flow from {source} to {sink} = {max_flow}")
     return max_flow
 
 if __name__ == "__main__":
