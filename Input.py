@@ -1,21 +1,17 @@
-# input.py : Définition du graphe orienté et des paramètres
+# Network input configuration
 
-SOURCE = "A"
-SINK = "G"
+SOURCE = "S"
+SINK = "T"
 
-# Liste des arcs orientés sous le format : (u, v, capacité)
-# L'ordre dans le tuple définit strictement l'orientation : u -> v
+# List of directed edges formatted as: (u, v, capacity)
 edges = [
-    ("A", "B", 7),
-    ("A", "C", 6),
-    ("A", "G", 5),
-    ("A", "F", 10),
-    ("B", "C", 5),
-    ("B", "D", 7),
-    ("B", "E", 9),
-    ("C", "E", 9),
-    ("C", "F", 7),
-    ("D", "E", 5),
-    ("E", "F", 5),
-    ("F", "G", 6),
+    ("S", "A", 10),
+    ("S", "B", 8),
+    ("A", "B", 4),
+    ("A", "C", 7),
+    ("B", "C", 3),
+    ("B", "D", 6),
+    ("C", "D", 2),
+    ("C", "T", 9),
+    ("D", "T", 8),
 ]
