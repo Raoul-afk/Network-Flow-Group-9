@@ -1,13 +1,9 @@
 import sys
-from Edmond-R.py import  edmonds_karp
+from Input import edges, SOURCE, SINK
+from Edmonds_karp import  edmonds_karp
 
 def main():
-    filename = "Input"
     print("=== Algorithm Execution ===")
-    print(f"Input file: {filename}\n")
-    Edmonds_karp(filename)
-    
-
-
+    edmonds_karp(edges, SOURCE, SINK)
 if __name__ == "__main__":
     main()
