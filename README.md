@@ -4,7 +4,7 @@
 * **Course:** Informatics ITS Graph Theory class Group 9
 * **Group Members:**
   * Calixte BERTHIER - 5999261123
-  * 
+  * Emmanuel SANTINI - 5999261124
   * 
 
 ---
@@ -26,12 +26,18 @@ Unlike the standard Ford-Fulkerson method which can use arbitrary augmenting pat
 
 ## 3. Project File Structure
 
+```text
+├── main.py          # Point d'entrée principal
+├── Edmonds_karp.py  # Implémentation de l'algorithme
+├── Input.py         # Définition du graphe (SOURCE, SINK, edges)
+└── README.md
+
+```
 
 ---
 
 ## 4. Prerequisite to run the code
 * **Python 3.8+**
-* 
 
 ---
 
@@ -75,6 +81,18 @@ edges = [
 
 ## 7. Result of sample run
 
+```text
+=== Algorithm Execution ===
+--- Edmonds-Karp Execution (S -> T) ---
+
+Iteration 1: S -> A -> C -> T | Flow added = 7
+Iteration 2: S -> B -> C -> T | Flow added = 2
+Iteration 3: S -> B -> D -> T | Flow added = 6
+Iteration 4: S -> A -> B -> C -> D -> T | Flow added = 1
+
+--- Final Result ---
+Maximum flow from S to T = 16
+```
 
 
 ---
