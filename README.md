@@ -17,14 +17,14 @@ Unlike the standard Ford-Fulkerson method which can use arbitrary augmenting pat
 1. **Residual Graph:** The algorithm builds a residual graph containing both forward capacities and backward edges (initialized to 0) to allow flow cancellation.
 2. **Shortest Augmenting Path (BFS):** A BFS traverses the residual graph from the source to the sink to find the path with the fewest edges having available capacity.
 3. **Bottleneck & Update:** The minimum capacity (bottleneck) along this path is computed and added to the total maximum flow. Residual capacities are then updated across direct and reverse edges.
-4. **Termination:** The process repeats until no more augmenting paths can reach the sink. The time complexity is guaranteed to be $O(V \cdot E^2)$.
+4. **Termination:** The process repeats until no more augmenting paths can reach the sink.
 
 ### 2. Dinic's Algorithm (Network Flow)
 We implemented **Dinic's algorithm**, which also finds the maximum flow but works in **phases** instead of one path at a time. Each phase has two steps:
 1. **Level graph (BFS):** A BFS from the source over the residual graph gives every vertex a *level* (its distance in edges from the source), using only edges with residual capacity > 0. If the sink is not reached, the algorithm stops: the current flow is maximum.
 2. **Blocking flow (DFS):** A DFS then pushes flow from the source to the sink **only along edges going from level *k* to level *k+1***. Many augmenting paths are pushed in the same phase, until every path of the level graph contains a saturated edge (this is called a *blocking flow*). A pointer per vertex remembers the next edge to try, so an edge that led to a dead end is never explored twice in a phase.
 3. **Residual update:** As in Edmonds-Karp, each push decreases the forward residual capacity and increases the backward one, which allows flow cancellation.
-4. **Termination:** After each phase the distance from the source to the sink strictly increases (it can be at most $V-1$), so there are at most $V$ phases. The time complexity is $O(V^2 \cdot E)$.
+4. **Termination:** After each phase the distance from the source to the sink strictly increases (it can be at most $V-1$), so there are at most $V$ phases.
 
 **Difference with Edmonds-Karp:** Edmonds-Karp runs one BFS for every single augmenting path, whereas Dinic runs one BFS per phase and then finds all the shortest paths of that phase with the DFS.
 
@@ -33,10 +33,10 @@ We implemented **Dinic's algorithm**, which also finds the maximum flow but work
 ## 3. Project File Structure
 
 ```text
-├── main.py          # Point d'entrée principal (runs both algorithms and compares them)
+├── main.py     # Point d'entrée principal (runs both algorithms and compares them)
 ├── Edmonds_karp.py  # Implémentation de l'algorithme d'Edmonds-Karp
-├── Dinic.py         # Implémentation de l'algorithme de Dinic
-├── Input.py         # Définition du graphe (SOURCE, SINK, edges)
+├── Dinic.py       # Implémentation de l'algorithme de Dinic
+├── Input.py      # Définition du graphe (SOURCE, SINK, edges)
 └── README.md
 
 ```
@@ -50,14 +50,14 @@ We implemented **Dinic's algorithm**, which also finds the maximum flow but work
 
 ## 5. Instructions to run the code
 
-*Note for macOS / Linux users: Use `python3` (on Windows, `python` or `py` usually works).*
+*Note for macOS / Linux users: Use `python3` (on Windows, `python` or `py`).*
 
 Make sure your `Input.py` file is configured with your desired network, then run from your terminal:
 
 ```bash
-python main.py            # runs Edmonds-Karp and Dinic, then compares the results
-python main.py edmonds    # runs Edmonds-Karp only
-python main.py dinic      # runs Dinic only
+python main.py    # runs Edmonds-Karp and Dinic, then compares the results
+python main.py edmonds  # runs Edmonds-Karp only
+python main.py dinic  # runs Dinic only
 ```
 
 Each algorithm can also be run on its own: `python Edmonds_karp.py` or `python Dinic.py`.
