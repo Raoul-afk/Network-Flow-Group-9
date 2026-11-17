@@ -131,4 +131,4 @@ Both algorithms agree.
 
 ## 8. AI tools usage disclosure
 
-AI tools were used to help structure the README, reformat algorithm explanations for clarity, and assist in Python code modularization. The Dinic implementation (`Dinic.py`), the update of `main.py` and the Dinic section of this README were generated with an AI assistant (Claude, by Anthropic), then validated by running the program on the sample case and by comparing its results with our Edmonds-Karp implementation. The graph structures and the sample network were defined by the team.
+AI tools were used to help structure the README, reformat algorithm explanations for clarity.
